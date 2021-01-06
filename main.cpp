@@ -19,11 +19,16 @@ int main(){
     Player::player              narrator;
     Player::player              sergent;
     Player::player              patrol;
+    Player::player              fighter1;
+    Player::player              fighter2;
+
 
     player.color = 'b';
     narrator.color = 'w';
     sergent.color = 'r';
     patrol.color = 'c';
+    fighter1.color = 'm';
+    fighter2.color = 'g';
 
     log << "Init phase over\n";
 
@@ -117,6 +122,7 @@ int main(){
                     consolePrintMSG("Now you have a choice to make will you\n 1.Remain silent\n 2.Apologize\n", narrator.color);
                     switch(get()){
                         case 1:
+                            consolePrintMSG("...", player.color);
                             consolePrintMSG(action.find("punched")->second, narrator.color);
                             consolePrintMSG("*you wake up 30 minutes later with a bad headache and notice that a patrol is heading you way for a checkin.*", narrator.color);
                             pause(3000);
@@ -128,7 +134,9 @@ int main(){
                             pause(3000);                            
                             consolePrintMSG("You now have a choice do you snitch[1] on the sergeant or lie[2] for him?", narrator.color);
                             pause(2000);
-
+                        case 2:
+                            choice = 1;
+                            consolePrintMSG("That's what I thought.", sergent.color);
                     }
             }
             player.updateLocation(++depth, choice);
@@ -149,9 +157,31 @@ int main(){
                         break;
                 }
             }
-            else
-            {
-                /* Stuff for yeah thats what i thought */
+            else if(choice == 1){
+                consolePrintMSG("*Your training ends and your now in the cafeteria.*", narrator.color);
+                pause(3000);
+                consolePrintMSG("Hey lil man give me your food", fighter1.color);
+                consolePrintMSG("Do you give them your food?\n 1.Give up food\n 2.Ignore\n 3.Reject", narrator.color);
+                pause(1000);
+                switch(get()){
+                    case 1:
+                        consolePrintMSG("Here take it.", player.color);
+                        pause(2000);
+                        consolePrintMSG("*He takes the food and walks away*", narrator.color);
+
+                    case 2:
+                        consolePrintMSG("...", player.color);
+                        pause(1000);
+                        consolePrintMSG("*He pushes you away and takes your food.*", fighter1.color);
+                    case 3: 
+                        consolePrintMSG("No your not taking my food.", player.color);
+                        pause(2000);
+                        consolePrintMSG("Ohhh so we got a tough guy here huh? Aye broski come check this dude out!", fighter1.color);
+                        pause(3000);
+                        consolePrintMSG("*He and his friend corner you.*", narrator.color);
+                        pause(4000);
+                        consolePrintMSG("Well, well well what do we have here, a lil weasle looking for his mother eh? I don't think you heard my friend right the first time, give us your food.", fighter2.color);
+                }
             }
             player.updateLocation(++depth, choice);
         }
@@ -175,6 +205,7 @@ int main(){
                         gameOver();
                 }
             }
+            elseif()
             else{
                 gameOver();
             }
